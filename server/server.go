@@ -12,7 +12,7 @@ func Server() {
 	router.Use(CORSMiddleware())
 	Router(router)
 	serve := &http.Server{
-		Addr:    ":8000",
+		Addr:    ":3000",
 		Handler: router,
 	}
 
