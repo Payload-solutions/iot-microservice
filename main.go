@@ -1,8 +1,9 @@
 package main
 
+import (
+	. "github.com/Payload-solutions/iot-microservice/server"
+)
 
-import "fmt"
-
-func main(){
-	fmt.Println("he he ha")
+func main() {
+	Server()
 }
