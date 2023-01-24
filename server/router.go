@@ -8,6 +8,8 @@ import (
 func Router(router *gin.Engine) *gin.Engine {
 	repoLayer := controllers.New()
 	router.Group("/").
-		GET("iot-values", repoLayer.GetSoilValues)
+		GET("iot-values", repoLayer.GetSoilValues).
+		POST("post-environ", repoLayer.PostEnvironValues).
+		GET("get-environ", repoLayer.GetEnvironValues)
 	return router
 }

@@ -21,7 +21,7 @@ type StructRepo struct {
 
 func New() *StructRepo {
 	db := NewInstance()
-	db.AutoMigrate(&models.SoilValues{})
+	db.AutoMigrate(&models.SoilValues{}, &models.RealEnvironmentValues{})
 	return &StructRepo{
 		Db: db,
 	}
@@ -38,6 +38,34 @@ func (repo *StructRepo) GetSoilValues(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, reading)
+}
+
+func (repo *StructRepo) GetEnvironValues(c *gin.Context) {
+	var reader []models.RealEnvironmentValues
+	err := models.ReadEnviron(repo.Db, &reader)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusNotFound,
+			gin.H{
+				"error": err,
+			})
+		return
+	}
+	c.JSON(http.StatusOK, reader)
+}
+
+func (repo *StructRepo) PostEnvironValues(c *gin.Context) {
+	var reader models.RealEnvironmentValues
+	c.ShouldBindJSON(&reader)
+
+	err := models.CreateEnviron(repo.Db, &reader)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError,
+			gin.H{
+				"error": err,
+			})
+		return
+	}
+	c.JSON(http.StatusOK, reader)
 }
 
 func ControllerSample(c *gin.Context) {
