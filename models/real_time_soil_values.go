@@ -31,3 +31,12 @@ func ReadEnviron(db *gorm.DB, reader *[]RealEnvironmentValues) (err error) {
 	}
 	return nil
 }
+
+func ReadTheLastTwenttyValues(db *gorm.DB, reader *[]RealEnvironmentValues) (err error) {
+	err = db.Find(reader).Limit(20).Error
+	if err != nil {
+		return err
+	}
+	return nil
+
+}

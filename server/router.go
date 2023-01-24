@@ -10,6 +10,7 @@ func Router(router *gin.Engine) *gin.Engine {
 	router.Group("/").
 		GET("iot-values", repoLayer.GetSoilValues).
 		POST("post-environ", repoLayer.PostEnvironValues).
-		GET("get-environ", repoLayer.GetEnvironValues)
+		GET("get-environ", repoLayer.GetEnvironValues).
+		GET("last-environ", repoLayer.ReadTheLast)
 	return router
 }
