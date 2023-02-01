@@ -11,6 +11,7 @@ func Router(router *gin.Engine) *gin.Engine {
 		GET("iot-values", repoLayer.GetSoilValues).
 		POST("post-environ", repoLayer.PostEnvironValues).
 		GET("get-environ", repoLayer.GetEnvironValues).
-		GET("last-environ", repoLayer.ReadTheLast)
+		GET("last-environ", repoLayer.ReadTheLast).
+		GET("last-one", repoLayer.ReadTheLastOne)
 	return router
 }

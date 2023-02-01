@@ -54,6 +54,20 @@ func (repo *StructRepo) ReadTheLast(c *gin.Context) {
 	c.JSON(http.StatusOK, reader[len(reader)-10:])
 }
 
+// get the last twentty values of the table
+func (repo *StructRepo) ReadTheLastOne(c *gin.Context) {
+	var reader []models.RealEnvironmentValues
+	err := models.ReadTheLastTwenttyValues(repo.Db, &reader)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusNotFound,
+			gin.H{
+				"error": err,
+			})
+		return
+	}
+	c.JSON(http.StatusOK, reader[len(reader)-1:])
+}
+
 func (repo *StructRepo) GetEnvironValues(c *gin.Context) {
 	var reader []models.RealEnvironmentValues
 	err := models.ReadEnviron(repo.Db, &reader)
