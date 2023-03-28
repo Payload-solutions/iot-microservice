@@ -51,6 +51,7 @@ func (repo *StructRepo) ReadTheLast(c *gin.Context) {
 			})
 		return
 	}
+
 	c.JSON(http.StatusOK, reader[len(reader)-10:])
 }
 

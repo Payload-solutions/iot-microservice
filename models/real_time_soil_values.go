@@ -7,13 +7,13 @@ import (
 )
 
 type RealEnvironmentValues struct {
-	SoilId             int64     `gorm:"primary_key;auto_increment;not_null" json:"soil_id"`
-	SoilDates          time.Time `gorm:"type:timestamp;default:current_timestamp" json:"soil_dates"`
-	TemperatureSoil    float64   `json:"temperature_soil"`
-	TemperatureEnviron float64   `json:"temperature_environ"`
-	PH                 float64   `json:"ph"`
-	Humidity           float64   `json:"humidity"`
-	SoilState          int       `gorm:"type:int;default:1" json:"soil_state"`
+	SoilId          int64     `gorm:"primary_key;auto_increment;not_null" json:"soil_id"`
+	SoilDates       time.Time `gorm:"type:timestamp;default:current_timestamp" json:"soil_dates"`
+	HumiditySoil    float64   `json:"humidity_soil"`
+	HumidityEnviron float64   `json:"humidity_environ"`
+	PH              float64   `json:"ph"`
+	Temperature     float64   `json:"temperature"`
+	SoilState       int       `gorm:"type:int;default:1" json:"soil_state"`
 }
 
 func CreateEnviron(db *gorm.DB, reader *RealEnvironmentValues) (err error) {
