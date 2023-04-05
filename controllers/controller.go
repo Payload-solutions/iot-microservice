@@ -27,19 +27,6 @@ func New() *StructRepo {
 	}
 }
 
-func (repo *StructRepo) GetSoilValues(c *gin.Context) {
-	var reading []models.SoilValues
-	err := models.GetReading(repo.Db, &reading)
-	if err != nil {
-		c.AbortWithStatusJSON(http.StatusNotFound,
-			gin.H{
-				"error": err,
-			})
-		return
-	}
-	c.JSON(http.StatusOK, reading)
-}
-
 // get the last twentty values of the table
 func (repo *StructRepo) ReadTheLast(c *gin.Context) {
 	var reader []models.RealEnvironmentValues
@@ -102,4 +89,31 @@ func ControllerSample(c *gin.Context) {
 		StatusCode: 200,
 		Body:       "sample",
 	})
+}
+
+func (repo *StructRepo) PhEnvironValues(c *gin.Context) {
+	var reader models.SoilValues
+	c.ShouldBindJSON(&reader)
+
+	err := models.CreateReading(repo.Db, &reader)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError,
+			gin.H{
+				"error": err,
+			})
+		return
+	}
+	c.JSON(http.StatusOK, reader)
+}
+func (repo *StructRepo) PhSoilValues(c *gin.Context) {
+	var reading []models.SoilValues
+	err := models.GetReading(repo.Db, &reading)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusNotFound,
+			gin.H{
+				"error": err,
+			})
+		return
+	}
+	c.JSON(http.StatusOK, reading)
 }

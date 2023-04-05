@@ -1,13 +1,16 @@
 package models
 
-import "gorm.io/gorm"
+import (
+	"time"
+
+	"gorm.io/gorm"
+)
 
 type SoilValues struct {
-	SoilId      int64   `json:"soil_id"`
-	Temperature float64 `json:"temperature"`
-	PH          float64 `json:"ph"`
-	Dates       string  `json:"dates"`
-	SoilState   int     `json:"soil_state"`
+	SoilId    int64     `gorm:"primary_key;auto_increment;not_null" json:"soil_id"`
+	PH        float64   `json:"ph"`
+	SoilDates time.Time `gorm:"type:timestamp;default:current_timestamp" json:"soil_dates"`
+	SoilState int       `gorm:"type:int;default:1" json:"soil_state"`
 }
 
 func CreateReading(db *gorm.DB, reading *SoilValues) (err error) {
