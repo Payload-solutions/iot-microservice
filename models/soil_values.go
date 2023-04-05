@@ -28,3 +28,11 @@ func GetReading(db *gorm.DB, reading *[]SoilValues) (err error) {
 	}
 	return nil
 }
+
+func ReadTheLastOnePhVals(db *gorm.DB, reading *[]SoilValues) (err error) {
+	err = db.Find(reading).Limit(10).Error
+	if err != nil {
+		return err
+	}
+	return nil
+}

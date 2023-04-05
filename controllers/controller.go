@@ -117,3 +117,16 @@ func (repo *StructRepo) PhSoilValues(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, reading)
 }
+
+func (repo *StructRepo) ReadTheLastOnePh(c *gin.Context) {
+	var reader []models.SoilValues
+	err := models.ReadTheLastOnePhVals(repo.Db, &reader)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusNotFound,
+			gin.H{
+				"error": err,
+			})
+		return
+	}
+	c.JSON(http.StatusOK, reader[len(reader)-1:])
+}
